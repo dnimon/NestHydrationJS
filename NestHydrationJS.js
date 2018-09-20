@@ -138,6 +138,7 @@ function nestHydrationJS() {
 						cellValue = cell.default;
 					}
 					
+					cell.prop = cell.prop.replace("%US%", "_");
 					obj[cell.prop] = cellValue;
 				}
 				
