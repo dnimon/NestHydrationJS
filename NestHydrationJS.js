@@ -1,5 +1,9 @@
 'use strict';
 
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function nestHydrationJS() {
 	var NestHydrationJS, _;
 
@@ -138,14 +142,14 @@ function nestHydrationJS() {
 						cellValue = cell.default;
 					}
 					
-					cell.prop = cell.prop.replace("%US%", "_");
+					cell.prop = replaceAll(cell.prop, "%US%", "_");
 					obj[cell.prop] = cellValue;
 				}
 				
 				// initialize empty to-many relations, they will be populated when
 				// those objects build themselves and find this containing object
 				for (k = 0; k < objMeta.toManyPropList.length; k++) {
-					objMeta.toManyPropList[k] = objMeta.toManyPropList[k].replace("%US%", "_");
+					objMeta.toManyPropList[k] = replaceAll(objMeta.toManyPropList[k], "%US%", "_");
 					obj[objMeta.toManyPropList[k]] = [];
 				}
 				
@@ -174,7 +178,7 @@ function nestHydrationJS() {
 				container = meta.idMap[objMeta.containingColumn].cache[containingId];
 
 				if (container) {
-					objMeta.ownProp = objMeta.ownProp.replace("%US%", "_");
+					objMeta.ownProp = replaceAll(objMeta.ownProp, "%US%", "_");
 					if (objMeta.isOneOfMany) {
 						// it is an array
 						container[objMeta.ownProp].push(obj);
